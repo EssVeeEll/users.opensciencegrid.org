@@ -16,7 +16,11 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+		<?php if(in_category(array(3, 88, 60, 62, 90, 61, 89, 63, ))): ?>
+                	<div class="col-md-8">
+		<?php else: ?>
+			<div class = "col-xs-12">
+		<?php endif; ?>
                     <section>
                         <h2 class="page-header no-margin-top"><?php the_title(); ?><br>
 			<small class = "absolute"><?php the_date(); ?></small>
@@ -36,10 +40,11 @@
                     </section>
 
                 </div>
-
+		<?php if(in_category(array(3, 88, 60, 62, 90, 61, 89, 63, ))): ?>
                 <div class="col-md-4">
                     <?php get_sidebar('blog'); ?>
                 </div>
+		<?php endif; ?>
             </div>
         </div> <!-- container  -->
     <?php endwhile;?>
