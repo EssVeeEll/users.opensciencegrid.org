@@ -1,0 +1,96 @@
+/*
+Theme Name: Artificial Reason
+Theme URI: http://razonartificial.com
+Author: adrigm
+Author URI: http://razonartificial.com
+Description: Clean and Elegant theme
+License: All rights reserved
+Tags: bootstrap, whithe, multicolor, responsive
+*/
+
+.avatar {
+    float: left;
+    margin-right: 10px;
+    padding: 5px;
+    border: solid 1px #ddd;
+}
+
+img.avatar + p,
+img.avatar + p {
+  margin-top: 0px;
+}
+
+img.clearborder{
+	border-width: 15px;
+}
+
+img.link:hover{
+	border-color: rgb(227, 118, 2);
+}
+
+.comment-respond {
+    margin-bottom: 20px;
+}
+
+#searchform-btn {
+    padding-right: 6px;
+}
+
+/* User Profile Dropdown */
+
+.dropdown-profile {
+	padding: 10px;
+	min-width: 340px;
+}
+
+
+.dropdown-profile h4 {
+	font-size: 2em;
+	margin-top: 0;
+	padding-top: 0;
+	line-height: 1em;
+	display: block;
+	margin-bottom: 10px;
+}
+
+.dropdown-profile a {
+	background: none !important;
+	box-shadow: none;
+	border: none !important;
+	font-size: 1em;
+	padding: 10px 0 5px 0 !important;
+	text-align: left;
+}
+
+.dropdown-profile a:hover,
+.dropdown-profile a:focus {
+	text-decoration: underline;
+}
+
+
+.dropdown-profile span {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.dropdown-profile .avatar {
+	float: left;
+}
+
+td.wide{
+	width: 100px;
+}
+
+table{
+	width: 100%;
+	border-spacing: 10px 0px;
+	border-collapse: separate;
+}
+
+.excerpt > figcaption {
+	display: none;
+}
+
+.excerpt > table{
+	display: none;
+}
