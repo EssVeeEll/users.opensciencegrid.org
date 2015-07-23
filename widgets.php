@@ -4,18 +4,11 @@
             <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer_sidebar') ) : ?>
 
                 <div class="col-md-4">
-                    <h3 class="footer-widget-title">Sitemap</h3>
-                    <?php
-                        wp_nav_menu( array(
-                            'menu'              => 'sitemap',
-                            'theme_location'    => 'sitemap',
-                            'depth'             => 2,
-                            'container'         => '',
-                            'container_class'   => '',
-                            'menu_class'        => 'list-unstyled three_cols',
-                        ));
-                    ?>
-                </div>
+			<h3 class = "footer-widget-title">Our Sponsors</h3>
+			<a href = "nsf.gov"><img src = "http://nsf.gov/images/nsf_logo.png" width = "350"></a>
+			<p>&nbsp;</p>
+			<a href = "energy.gov"><img src = "http://insideevs.com/wp-content/uploads/2015/03/doe-logo.png" width = "350"></a>
+                    </div>
                 <div class="col-md-4">
                     <div class="footer-widget">
                         <h3 class="footer-widget-title">Recent Posts</h3>
