@@ -8,6 +8,31 @@ License: All rights reserved
 Tags: bootstrap, whithe, multicolor, responsive
 */
 
+li.topbutton{
+	margin: 0px;
+}
+
+a.topbutton{
+	height: 40px;
+	padding: 0px;
+	margin: 0px;
+	color: black;
+}
+
+a.topbutton:hover{
+	color: #E37602;
+}
+
+ul.at-top{
+	border: 1px solid #E5E5E5; 
+	border-top: none;
+	height: 40px;
+}
+
+ul.at-top:hover{
+	height: 40px;
+}
+
 li.topbutton:hover{
 	background: #E37602;
 }

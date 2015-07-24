@@ -5,9 +5,9 @@
 
                 <div class="col-md-4">
 			<h3 class = "footer-widget-title">Our Sponsors</h3>
-			<a href = "nsf.gov"><img src = "http://nsf.gov/images/nsf_logo.png" width = "350"></a>
+			<a href = "http://www.nsf.gov" target = "_blank"><img src = "http://nsf.gov/images/nsf_logo.png" width = "350"></a>
 			<p>&nbsp;</p>
-			<a href = "energy.gov"><img src = "http://insideevs.com/wp-content/uploads/2015/03/doe-logo.png" width = "350"></a>
+			<a href = "http://www.science.energy.gov" target = "_blank"><img src = "http://science.energy.gov/~/media/_/images/about/resources/logos/png/high-res/RGB_Color-Seal_Green-Mark_SC_Horizontal.png" width = "350"></a>
                     </div>
                 <div class="col-md-4">
                     <div class="footer-widget">

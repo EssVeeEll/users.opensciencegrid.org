@@ -5,9 +5,9 @@
             <p class="animated fadeInRight"><?php bloginfo('description'); ?></p>
         </div>
         <nav class="top-nav">
-	<ul class = "top-nav-social hidden-sm">
-		<li class = "topbutton"><a href = "http://support.opensciencegrid.org/" class = "topbutton" target = "_blank">User Helpdesk</a></li>
-		<li class = "topbutton"><a href = "https://ticket.grid.iu.edu/submit" target = "_blank" class = "topbutton">Site Support</a></li>
+	<ul class = "nav navbar-nav at-top">
+		<li class = "topbutton"><a href = "http://support.opensciencegrid.org/" class = "topbutton" target = "_blank" style = "padding-top: 10px;">User Helpdesk</a></li>
+		<li class = "topbutton"><a href = "https://ticket.grid.iu.edu/submit" target = "_blank" class = "topbutton" style = "padding-top: 10px;">Site Support</a></li>
 	</ul>
             <ul class="top-nav-social hidden-sm">
                 <?php $valores = of_get_option('header_social_icons', array());
