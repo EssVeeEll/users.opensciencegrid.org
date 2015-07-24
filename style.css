@@ -8,6 +8,24 @@ License: All rights reserved
 Tags: bootstrap, whithe, multicolor, responsive
 */
 
+li.topbutton:hover{
+	background: #E37602;
+}
+
+.btn.outline{
+	background: none;
+	padding: 12px 22px;
+}
+
+.btn-primary.outline {
+    border: 2px solid rgb(227, 118, 2);
+    color: #69635E;
+}
+
+.btn:hover{
+	color: #E37602;
+}
+
 .avatar {
     float: left;
     margin-right: 10px;
