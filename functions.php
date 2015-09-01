@@ -1,5 +1,4 @@
 <?php
-
 /* -------------------------------------------------------------------------- */
 /* Options Panel */
 /* -------------------------------------------------------------------------- */
@@ -62,6 +61,66 @@ function my_theme_setup(){
     load_theme_textdomain('artificial_reason', get_template_directory() . '/languages');
 }
 
+$lastimg = 0;
+
+/* 
+* Returns the following array:
+* (url, width, height, boolean telling whether image is resized or not).
+* Note that if you add more images, they must be hard-coded in.
+* you can put in 'thumbnail', 'medium', 'large', or 'full' in as
+* a parameter.  Default is full.
+*/
+
+function get_stock_feature_info($size){
+	global $lastimg;
+	$id = 0;
+	while($id == 0){
+		$num = wp_rand(1, 8);
+		if($num == 1 && num != lastimg):
+			$id = 2220;
+		elseif($num == 2 && num != lastimg):
+			$id = 2214;
+		elseif($num == 3 && num != lastimg):
+			$id = 2216;
+		elseif($num == 4 && num != lastimg):
+			$id = 2800;
+		elseif($num == 5 && num != lastimg):
+			$id = 2801;
+		elseif($num == 6 && num != lastimg):
+			$id = 3395;
+		elseif($num == 7 && num != lastimg):
+			$id = 3407;
+		elseif($num == 8 && num != lastimg):
+			$id = 3428;
+		endif;
+	}
+	if($size == 'thumbnail'):
+		$info = wp_get_attachment_image_src($id);
+	elseif($size == 'medium'):
+		$info = wp_get_attachment_image_src($id, 'medium');
+	elseif($size == 'large'):
+		$info = wp_get_attachment_image_src($id, 'large');
+	else:
+		$info = wp_get_attachment_image_src($id, 'full');
+	endif;
+	$lastimg = $num;
+	return $info;
+}
+
+
+/* 
+* Returns the image url of one of the stock featured images 
+* for when an article has no image associated with it.  Note
+* that if you add more images, they must be hard-coded in.
+* you can put in 'thumbnail', 'medium', 'large', or 'full' in as
+* a parameter.  Default is full.
+*/
+
+function get_stock_feature_url($size){
+	$info = get_stock_feature_info($size);
+	return $info[0];
+}
+
 
 /* -------------------------------------------------------------------------- */
 /* Personalize excerpt and content */
@@ -71,7 +130,16 @@ function my_theme_setup(){
 //remove_filter('the_content', 'wpautop');
 
 function custom_excerpt_length( $length ) {
-    return 100;
+	$post = get_the_content();
+	$matches = array();
+	$regex = '<figcaption[^>]*>.*?</figcaption>';
+	$hasFigcaption = preg_match($regex, $post, $matches);
+	if($hasFigcaption === 1):
+		$len = 150 + str_word_count($matches[0]);
+		return $len;
+	else:
+		return 150;
+	endif;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
@@ -86,43 +154,6 @@ function excerpt($limit) {
     $excerpt = preg_replace('`\[[^\]]*\]`','',$excerpt);
     return $excerpt;
 }
-
-<?php
-/***********************CODE-1************************************************
-* @Author: Boutros AbiChedid 
-* @Date:   April 18, 2012
-* @Websites: bacsoftwareconsulting.com/ ; blueoliveonline.com/
-* @Description: Remove header tags and their content From the automatically 
-* generated Excerpt.
-* Code modifies default excerpt_length and excerpt_more filters.
-* Code Does NOT preserve any other HTML formatting in the excerpt.
-* @Tested on: WordPress version 3.3.1 
-****************************************************************************/
- 
-function bac_wp_strip_header_tags( $text ) {
-    $raw_excerpt = $text;
-    if ( '' == $text ) {
-        //Retrieve the post content.
-        $text = get_the_content(''); 
-        //remove shortcode tags from the given content.
-        $text = strip_shortcodes( $text );
-        $text = apply_filters('the_content', $text);
-        $text = str_replace(']]>', ']]&gt;', $text);
-     
-        //Regular expression that strips the header tags and their content.
-        $regex = '#(<figure[^>]*>)\s?(.*)?\s?(<\figure\2>)#';
-        $text = preg_replace($regex,'', $text);
-     
-        /***Change the excerpt word count.***/
-        $excerpt_word_count = 100; //setting length to something appropriate
-        $excerpt_length = apply_filters('excerpt_length', $excerpt_word_count);
-         
-        $excerpt = wp_trim_words( $text, $excerpt_length, $excerpt_more );
-        }
-        return apply_filters('wp_trim_excerpt', $excerpt, $raw_excerpt);
-}
-add_filter( 'get_the_excerpt', 'bac_wp_strip_header_tags', 5);
-?>
 
 function content($limit) {
     $content = explode(' ', get_the_content(), $limit);
@@ -220,6 +251,80 @@ if (function_exists('register_sidebar'))
     ));
 
 
+/*web scraper*/
+
+class Curl
+{   	
+
+    public $cookieJar = "";
+
+    public function __construct($cookieJarFile = 'cookies.txt') {
+        $this->cookieJar = $cookieJarFile;
+    }
+
+    function setup()
+    {
+
+
+        $header = array();
+        $header[0] = "Accept: text/xml,application/xml,application/xhtml+xml,";
+        $header[0] .= "text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
+        $header[] =  "Cache-Control: max-age=0";
+        $header[] =  "Connection: keep-alive";
+        $header[] = "Keep-Alive: 300";
+        $header[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
+        $header[] = "Accept-Language: en-us,en;q=0.5";
+        $header[] = "Pragma: "; // browsers keep this blank.
+
+
+        curl_setopt($this->curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US; rv:1.8.1.7) Gecko/20070914 Firefox/2.0.0.7');
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $header);
+    	curl_setopt($this->curl,CURLOPT_COOKIEJAR, $cookieJar); 
+    	curl_setopt($this->curl,CURLOPT_COOKIEFILE, $cookieJar);
+    	curl_setopt($this->curl,CURLOPT_AUTOREFERER, true);
+    	curl_setopt($this->curl,CURLOPT_FOLLOWLOCATION, true);
+    	curl_setopt($this->curl,CURLOPT_RETURNTRANSFER, true);	
+    }
+
+
+    function get($url)
+    { 
+    	$this->curl = curl_init($url);
+    	$this->setup();
+
+    	return $this->request();
+    }
+
+    function getAll($reg,$str)
+    {
+    	preg_match_all($reg,$str,$matches);
+    	return $matches[1];
+    }
+
+    function postForm($url, $fields, $referer='')
+    {
+    	$this->curl = curl_init($url);
+    	$this->setup();
+    	curl_setopt($this->curl, CURLOPT_URL, $url);
+    	curl_setopt($this->curl, CURLOPT_POST, 1);
+    	curl_setopt($this->curl, CURLOPT_REFERER, $referer);
+    	curl_setopt($this->curl, CURLOPT_POSTFIELDS, $fields);
+    	return $this->request();
+    }
+
+    function getInfo($info)
+    {
+    	$info = ($info == 'lasturl') ? curl_getinfo($this->curl, CURLINFO_EFFECTIVE_URL) : curl_getinfo($this->curl, $info);
+    	return $info;
+    }
+
+    function request()
+    {
+    	return curl_exec($this->curl);
+    }
+}
+
+
 /* -------------------------------------------------------------------------- */
 /* WIDGETS Artificial Reason */
 /* -------------------------------------------------------------------------- */
@@ -288,30 +393,63 @@ class AReason_Tabs_Widget
 
          <div class="block">
             <ul class="nav nav-tabs nav-tabs-ar" id="myTab2">
-                <li class="active"><a href="#fav" data-toggle="tab"><i class="fa fa-star"></i></a></li>
+		<li class = "active"><a href="#other" data-toggle="tab"><i class="fa fa-archive"></i></a></li>
                 <li><a href="#categories" data-toggle="tab"><i class="fa fa-folder-open"></i></a></li>
                 <li><a href="#archive" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
-                <li><a href="#tags" data-toggle="tab"><i class="fa fa-tags"></i></a></li>
+		<li><a href = "#tags" data-toggle = "tab"><i class = "fa fa-tags"></i></a></li>
             </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="fav">
-                    <h3 class="post-title"><?php _e('Favorite Post', 'artificial_reason') ?></h3>
-                    <?php echo do_shortcode('[post-list posts_per_page="3" orderby="comment_count"]'); ?>
-                </div>
-                <div class="tab-pane" id="archive">
+		<div class = "tab-content">
+                <div class = "tab-pane active" id = "other">
+		
+			<h3 class = "post-title"><?php _e('From the Archive', 'artificial_reason') ?></h3>
+			
+			<table>
+			<?php $args = array('posts_per_page' => '3',
+			'orderby' => 'rand');	
+			$posts = get_posts($args);
+			global $post;
+			foreach($posts as $post): 
+				setup_postdata($post);?>
+				<tr>
+				<td class = "wide">
+				<a href = "<?php the_permalink(); ?>">
+				<?php if (has_post_thumbnail($post->ID)) :
+					$info = wp_get_attachment_url(get_post_thumbnail_id($post->ID)); ?>
+					<img src = "<?php  echo $info; ?>" class = "img-responsive imageborder link" width = "100" height = "100">
+				<?php else: 
+					$url = get_stock_feature_url('thumbnail'); ?>
+					<img src="<?php echo $url; ?>" class="img-responsive imageborder link" alt="No image" width = "100" height = "100">
+				<?php endif; ?>
+				</a>
+				</td>
+				<td>
+				<a href = "<?php the_permalink(); ?>"><?php the_title(); ?></a>
+				<br>
+				<?php the_date(); ?>
+				</td>
+				</tr>
+				
+			<?php endforeach; ?> 
+                
+                </table>
+		</div>
+
+
+		<div class="tab-pane" id="archive">
                      <h3 class="post-title"><?php _e('Archives', 'artificial_reason') ?></h3>
                     <ul class="simple">
                         <?php wp_get_archives( $args ); ?>
                     </ul>
                 </div>
+
                 <div class="tab-pane" id="categories">
                     <h3 class="post-title"><?php _e('Categories', 'artificial_reason') ?></h3>
                     <ul class="simple">
                         <?php wp_list_categories('title_li='); ?>
                     </ul>
                 </div>
-
-                <div class="tab-pane" id="tags">
+		
+		<div class="tab-pane" id="tags">
                     <h3 class="post-title"><?php _e('Tags', 'artificial_reason') ?></h3>
                     <div class="tags-cloud">
                         <?php
@@ -328,6 +466,8 @@ class AReason_Tabs_Widget
                         ?>
                     </div>
                 </div>
+
+                
             </div> <!-- tab-content -->
         </div>
 

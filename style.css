@@ -8,6 +8,25 @@ License: All rights reserved
 Tags: bootstrap, whithe, multicolor, responsive
 */
 
+th.metric, td.metric{
+	border: 1px solid grey;
+	text-align: center;
+	padding: 5px;
+}
+
+th.metric{
+	background-color: rgb(227,118,2);
+	color: #ffffff;
+	font-size: medium;
+}
+
+@media screen {
+    li.topbutton > a:hover {
+    	color: white;
+	    background-color: rgb(227,118,2);
+	}
+}
+
 li.topbutton{
 	margin: 0px;
 }
@@ -17,10 +36,6 @@ a.topbutton{
 	padding: 0px;
 	margin: 0px;
 	color: black;
-}
-
-a.topbutton:hover{
-	color: #E37602;
 }
 
 ul.at-top{
