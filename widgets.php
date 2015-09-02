@@ -2,13 +2,12 @@
     <div class="container">
         <div class="row"> 
             <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer_sidebar') ) : ?>
-
                 <div class="col-md-4">
 			<h3 class = "footer-widget-title">Our Sponsors</h3>
 			<a href = "http://www.nsf.gov" target = "_blank"><img src = "http://nsf.gov/images/nsf_logo.png" width = "350"></a>
 			<p>&nbsp;</p>
 			<a href = "http://www.science.energy.gov" target = "_blank"><img src = "http://science.energy.gov/~/media/_/images/about/resources/logos/png/high-res/RGB_Color-Seal_Green-Mark_SC_Horizontal.png" width = "350"></a>
-                    </div>
+</div>
                 <div class="col-md-4">
                     <div class="footer-widget">
                         <h3 class="footer-widget-title">Recent Posts</h3>
