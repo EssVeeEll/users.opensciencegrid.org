@@ -8,6 +8,66 @@ License: All rights reserved
 Tags: bootstrap, whithe, multicolor, responsive
 */
 
+.data {
+	width: 90%;	
+	margin: auto;
+	margin-top: 50px;
+	background: rgb(246, 248, 248);
+}
+
+.metric {
+	opacity: .83;
+	width: 250px;
+	background: #EDEAE6; 
+	color: #353535;
+	float: left;
+}
+
+.metric-title {
+	padding: 10px 0 0 0;
+}
+
+.metric-title span {
+	display: block;
+	text-align: center;
+}
+
+.metric-title span:first-of-type {
+	font-size: 23px;  
+}
+
+.metric-title span:last-of-type {
+	font-size: 13px;
+}
+
+.metric .value {
+	display: block;
+	width: 250px;  
+	background: rgb(227,118,2);
+	margin: 15px 0 10px 0;
+	text-align: center;
+	font-size: 23px;
+	padding: 17px 0 17px 0;
+	color: #f9f9f9;
+}
+
+span.icon-ar-orange:hover{
+	color: rgb(227,118,2);
+}
+
+.at-top a{
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-ms-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}
+
+a.user:hover{
+	color: white;
+	background-color: rgb(227,118,2);
+}
+
 th.metric, td.metric{
 	border: 1px solid grey;
 	text-align: center;
@@ -49,7 +109,7 @@ ul.at-top:hover{
 }
 
 li.topbutton:hover{
-	background: #E37602;
+	background: #ef922f;
 }
 
 .btn.outline{
