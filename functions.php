@@ -80,18 +80,6 @@ function get_stock_feature_info($size){
 			$id = 2220;
 		elseif($num == 2 && num != lastimg):
 			$id = 2214;
-		elseif($num == 3 && num != lastimg):
-			$id = 2216;
-		elseif($num == 4 && num != lastimg):
-			$id = 2800;
-		elseif($num == 5 && num != lastimg):
-			$id = 2801;
-		elseif($num == 6 && num != lastimg):
-			$id = 3395;
-		elseif($num == 7 && num != lastimg):
-			$id = 3407;
-		elseif($num == 8 && num != lastimg):
-			$id = 3428;
 		endif;
 	}
 	if($size == 'thumbnail'):
